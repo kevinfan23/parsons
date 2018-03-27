@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/scenes/Assembly-CSharp.unity
+  isLoaded: 1
+  isActive: 1

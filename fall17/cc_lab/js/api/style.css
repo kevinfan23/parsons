@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+body {
+  background: #eeeeee;
+  font-family: “Trebuchet MS”, Verdana, Arial, serif;
+}
+
+.list-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-right: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ul.list {
+  width: 520px;
+  height: 540px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+li {
+  list-style: none;
+  position: relative;
+  float: left;
+}
+
+.temp-container {
+  width: 250px;
+  height: 250px;
+  background: white;
+  box-shadow: 2px 5px 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+.temp-container img {
+  position: absolute;
+  width: 60px;
+  top: 20px;
+  right: 20px;
+}
+
+span.temp, p.loc {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+  color: #b8b8b8;
+}
+
+span.temp {
+  font-size: 100px;
+  font-weight: 100;
+  position: relative;
+  top: 80px;
+  left: 30px;
+}
+
+p.loc {
+  position: relative;
+  font-weight: 300;
+  margin-top: 70px;
+  left: 30px;
+}

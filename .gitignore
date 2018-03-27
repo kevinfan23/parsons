@@ -1,0 +1,13 @@
+# Export Videos
+*.mov
+
+# Large pdf Storyboards
+fall17/motion-graphics/assignments/*.pdf
+
+# Large Unity assets
+spring18/unity/week8/lecture8/Assets/*
+spring18/unity/week8/lecture8/Library/*
+
+
+# Large Photoshop assets
+*.psd
