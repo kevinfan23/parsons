@@ -23,7 +23,7 @@ theta1 = theta([2:end],:);
 theta_reg = [zeros(1,size(theta, 2)); theta1];
 
 J = (1/m) * ((-y)' * log(h) - (1-y)' * log(1 - h)) + (lambda/(2*m)) * (theta_reg' * theta_reg);
-grad = (1/m) * (X'*(h - y)) + (lambda/m)*theta_reg;
+% grad = (1/m) * (X'*(h - y)) + (lambda/m)*theta_reg;
 
 
 
