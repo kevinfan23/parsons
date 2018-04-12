@@ -1,15 +1,21 @@
-# Export Videos
+# exported videos
 *.mov
 
-# Large pdf Storyboards
+# large pdf storyboards
 fall17/motion-graphics/assignments/*.pdf
 
-# Large Unity assets
+# large unity assets
 spring18/unity/week8/lecture8/Assets/*
 spring18/unity/week8/lecture8/Library/*
 
 spring18/unity/week10/lecture10/Assets/*
 spring18/unity/week10/lecture10/Library/*
 
-# Large Photoshop assets
+
+# ethereum truffle scaffold files
+spring18/blockchain/truffle-starter/*
+
+
+
+# large photoshop assets
 *.psd
