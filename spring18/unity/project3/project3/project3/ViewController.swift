@@ -6,6 +6,10 @@
 //  Copyright © 2018 Kevin Fan. All rights reserved.
 //
 
+// SceneKit Particle System was adapted from
+// Ray Wenderlich's tutorial at
+// https://www.raywenderlich.com/128745/scene-kit-tutorial-swift-part-5-particle-systems
+
 import UIKit
 import ARKit
 
