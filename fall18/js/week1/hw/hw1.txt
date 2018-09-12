@@ -1,0 +1,44 @@
+// Wake up in the morning
+if (!raining)
+  No need umbrella
+  Jump to L2
+else
+  Bring umbrella
+  Jump to L1
+
+L1
+  if (season == winter)
+    Choose blue umbrella
+  else if (season == summer)
+    Choose pink umbrella
+  else
+    Choose black umbrella
+  Jump to L2
+
+L2
+  if (wake up late)
+    Jump to L3
+  else
+    Have breakfast
+    Jump to L4
+
+L3
+  if (time before class starts < 10mins)
+    Run to school
+    Jump to L5
+  else
+    Walk to school
+
+L4
+  if (still full from last night)
+    Have a bagel
+    Jump to L3
+  else
+    Have a bowl of cereal
+    Jump to L3
+
+L5
+  if (time before class starts < 3mins)
+    Use stairs
+  else
+    Wait for elevator
