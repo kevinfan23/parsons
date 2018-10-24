@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,IAAI;EACF,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,KAAK",
+"sources": ["../../../../../../../../desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass"],
+"names": [],
+"file": "styles.css"
+}
