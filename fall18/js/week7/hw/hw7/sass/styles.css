@@ -1,6 +1,34 @@
-body {
-  margin: 0;
-  padding: 0;
-  background: white; }
+/*
+Error: Invalid CSS after "  margin": expected selector or at-rule, was ": 0"
+        on line 4 of /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass
 
-/*# sourceMappingURL=styles.css.map */
+1: @import url('https://fonts.googleapis.com/css?family=Roboto')
+2: 
+3: body
+4:   margin: 0
+5:   padding: 0
+6:   background: white
+7: 
+8: .form
+9:   position: relative
+
+Backtrace:
+/Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass:4
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/scss/parser.rb:1278:in `expected'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/scss/parser.rb:1208:in `expected'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/scss/parser.rb:42:in `parse'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/engine.rb:414:in `_to_tree'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/exec/sass_scss.rb:387:in `run'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/exec/base.rb:50:in `parse'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/lib/sass/exec/base.rb:18:in `parse!'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.7/bin/sass:13:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"  margin\": expected selector or at-rule, was \": 0\"\A         on line 4 of /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass\A \A 1: @import url('https://fonts.googleapis.com/css?family=Roboto')\A 2: \A 3: body\A 4:   margin: 0\A 5:   padding: 0\A 6:   background: white\A 7: \A 8: .form\A 9:   position: relative"; }
