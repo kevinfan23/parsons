@@ -155,6 +155,7 @@ function clickSubmit(e) {
                 xhr_uber_time.onreadystatechange = function() {
                   if (this.readyState == 4 && this.status == 200) {
                     let json = JSON.parse(xhr_uber_time.responseText);
+                    console.log(xhr_uber_time.responseText);
                     json.times.forEach(function(time) {
                       switch (time.localized_display_name) {
                         case 'UberX':
@@ -170,17 +171,17 @@ function clickSubmit(e) {
                           break;
                       }
                     });
-                    // console.log(uber_data);
+                    console.log(uber_data);
                     let uber_price_fields = document.querySelectorAll('.uber .ride-list .price');
                     let uber_eta_fields = document.querySelectorAll('.uber .ride-list .eta');
 
-                    uber_price_fields[0].textContent = uber_data.uber_x.price_estimate;
-                    uber_price_fields[1].textContent = uber_data.uber_pool.price_estimate;
-                    uber_price_fields[2].textContent = uber_data.uber_black.price_estimate;
+                    uber_price_fields[0].textContent = uber_data.uber_x.price_estimate || '-';
+                    uber_price_fields[1].textContent = uber_data.uber_pool.price_estimate || '-';
+                    uber_price_fields[2].textContent = uber_data.uber_black.price_estimate || '-';
 
                     uber_eta_fields[0].textContent = formatTime(uber_data.uber_x.driver_eta + uber_data.uber_x.duration_estimate);
-                    uber_eta_fields[1].textContent = formatTime(uber_data.uber_pool.driver_eta + uber_data.uber_x.duration_estimate)
-                    uber_eta_fields[2].textContent = formatTime(uber_data.uber_black.driver_eta + uber_data.uber_x.duration_estimate);
+                    uber_eta_fields[1].textContent = uber_data.uber_pool.duration_estimate ? formatTime(uber_data.uber_pool.driver_eta + uber_data.uber_pool.duration_estimate) : '-';
+                    uber_eta_fields[2].textContent = formatTime(uber_data.uber_black.driver_eta + uber_data.uber_black.duration_estimate);
 
                     const xhr_lyft_price = new XMLHttpRequest();
                     let base_url='https://api.lyft.com/v1/cost?';
@@ -223,7 +224,7 @@ function clickSubmit(e) {
                         xhr_lyft_time.onreadystatechange = function() {
                           if (this.readyState == 4 && this.status == 200) {
                             let json = JSON.parse(xhr_lyft_time.responseText);
-                            console.log(json.eta_estimates[0].eta_seconds);
+                            // console.log(json.eta_estimates[0].eta_seconds);
                             json.eta_estimates.forEach(function(eta) {
                               switch (eta.ride_type) {
                                 case 'lyft':
@@ -243,13 +244,13 @@ function clickSubmit(e) {
                             let lyft_price_fields = document.querySelectorAll('.lyft .ride-list .price');
                             let lyft_eta_fields = document.querySelectorAll('.lyft .ride-list .eta');
 
-                            lyft_price_fields[0].textContent = lyft_data.lyft.price_estimate;
-                            lyft_price_fields[1].textContent = lyft_data.lyft_line.price_estimate;
-                            lyft_price_fields[2].textContent = lyft_data.lyft_plus.price_estimate;
+                            lyft_price_fields[0].textContent = lyft_data.lyft.price_estimate || '-';
+                            lyft_price_fields[1].textContent = lyft_data.lyft_line.price_estimate || '-';
+                            lyft_price_fields[2].textContent = lyft_data.lyft_plus.price_estimate || '-';
 
-                            lyft_eta_fields[0].textContent = formatTime(lyft_data.lyft.driver_eta + lyft_data.lyft.duration_estimate);
-                            lyft_eta_fields[1].textContent = formatTime(lyft_data.lyft_line.driver_eta + lyft_data.lyft_line.duration_estimate)
-                            lyft_eta_fields[2].textContent = formatTime(lyft_data.lyft_plus.driver_eta + lyft_data.lyft_plus.duration_estimate);
+                            lyft_eta_fields[0].textContent = formatTime(lyft_data.lyft.driver_eta + lyft_data.lyft.duration_estimate) || '-';
+                            lyft_eta_fields[1].textContent = formatTime(lyft_data.lyft_line.driver_eta + lyft_data.lyft_line.duration_estimate) || '-';
+                            lyft_eta_fields[2].textContent = formatTime(lyft_data.lyft_plus.driver_eta + lyft_data.lyft_plus.duration_estimate) || '-';
                           }
                         }
                       }
