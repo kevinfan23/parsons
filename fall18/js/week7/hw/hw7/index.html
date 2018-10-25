@@ -8,7 +8,6 @@
   <meta name="author" content="Ride Comparison">
   <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
   <link rel="stylesheet" href="sass/styles.min.css">
-
 </head>
 
 <body>
@@ -23,8 +22,8 @@
 
   <div class="form">
     <form name="price_input">
-      <input name="start" type="text" placeholder="Choose a starting point" maxlength="33"/>
-      <input name="end" type="text" placeholder="Choose destination..." maxlength="33"/>
+      <input id="start" name="start" type="text" placeholder="Choose a starting point" maxlength="50"/>
+      <input id="end" name="end" type="text" placeholder="Choose destination..." maxlength="50"/>
       <button name="submit" type="submit" class="submit">
         <img class="submit-arrow" src="img/arrow-sprite.png"/>
       </button>
@@ -37,18 +36,18 @@
       <ul class="ride-list">
         <li class="ride-item">
           <p class="ride-type">UberX</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
         <li class="ride-item">
           <p class="ride-type">UberPool</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
         <li class="ride-item">
           <p class="ride-type">Uber Black</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
       </ul>
     </div>
@@ -57,23 +56,45 @@
       <ul class="ride-list">
         <li class="ride-item">
           <p class="ride-type">Lyft</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
         <li class="ride-item">
           <p class="ride-type">Lyft Shared</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
         <li class="ride-item">
           <p class="ride-type">Lyft XL</p>
-          <p class="price">$12-20</p>
-          <p class="eta">11:59pm</p>
+          <p class="price"></p>
+          <p class="eta"></p>
         </li>
       </ul>
     </div>
   </div>
+<style type="text/css">
+  /* Google Place autocomplete styles */
+  .pac-container {
+    margin-top: 10px;
+    border-radius: 3px;
+    border: none;
+    background: white;
+    box-shadow: rgba(46, 61, 73, 0.2) 5px 5px 15px 0px;
+  }
 
+  .pac-item, .pac-item-query {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 40px;
+    border: none;
+    /* font-size: 30px; */
+  }
+
+  .pac-icon {
+    opacity: 0;
+  }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIjoTqEJADVj-kj33OTqDmv2iX044QsyI&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="js/scripts.js"></script>
 </body>
 </html>

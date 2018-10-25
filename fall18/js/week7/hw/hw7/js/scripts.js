@@ -288,6 +288,14 @@ function formatTime(sec) {
   return time_str;
 }
 
+// Google Place autocomplete API
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  let autocomplete = new google.maps.places.Autocomplete((document.getElementById('start')),{types: ['geocode']});
+  autocomplete = new google.maps.places.Autocomplete((document.getElementById('end')),{types: ['geocode']});
+}
+
 // let xhr = new XMLHttpRequest();
 //   let user = {}; // create an empty object
 //   user.name = form.first_name.value + ' ' + form.last_name.value;
