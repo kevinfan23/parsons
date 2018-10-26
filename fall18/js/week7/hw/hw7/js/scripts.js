@@ -68,6 +68,12 @@ document.addEventListener("DOMContentLoaded", function() {
       alert_overlay.classList.remove('alert');
       alert_form.classList.remove('alert');
     });
+
+    document.getElementsByClassName('switch')[0].addEventListener('click', function() {
+      let temp = form.end.value;
+      form.end.value = form.start.value;
+      form.start.value = temp;
+    });
 });
 
 // solution 1: XMLHttpRequest async callbacks
@@ -179,9 +185,9 @@ function clickSubmit(e) {
                     uber_price_fields[1].textContent = uber_data.uber_pool.price_estimate || '-';
                     uber_price_fields[2].textContent = uber_data.uber_black.price_estimate || '-';
 
-                    uber_eta_fields[0].textContent = formatTime(uber_data.uber_x.driver_eta + uber_data.uber_x.duration_estimate);
+                    uber_eta_fields[0].textContent = uber_data.uber_x.duration_estimate ? formatTime(uber_data.uber_x.driver_eta + uber_data.uber_x.duration_estimate) : '-';
                     uber_eta_fields[1].textContent = uber_data.uber_pool.duration_estimate ? formatTime(uber_data.uber_pool.driver_eta + uber_data.uber_pool.duration_estimate) : '-';
-                    uber_eta_fields[2].textContent = formatTime(uber_data.uber_black.driver_eta + uber_data.uber_black.duration_estimate);
+                    uber_eta_fields[2].textContent = uber_data.uber_black.duration_estimate ? formatTime(uber_data.uber_black.driver_eta + uber_data.uber_black.duration_estimate): '-';
 
                     const xhr_lyft_price = new XMLHttpRequest();
                     let base_url='https://api.lyft.com/v1/cost?';
@@ -248,9 +254,9 @@ function clickSubmit(e) {
                             lyft_price_fields[1].textContent = lyft_data.lyft_line.price_estimate || '-';
                             lyft_price_fields[2].textContent = lyft_data.lyft_plus.price_estimate || '-';
 
-                            lyft_eta_fields[0].textContent = formatTime(lyft_data.lyft.driver_eta + lyft_data.lyft.duration_estimate) || '-';
-                            lyft_eta_fields[1].textContent = formatTime(lyft_data.lyft_line.driver_eta + lyft_data.lyft_line.duration_estimate) || '-';
-                            lyft_eta_fields[2].textContent = formatTime(lyft_data.lyft_plus.driver_eta + lyft_data.lyft_plus.duration_estimate) || '-';
+                            lyft_eta_fields[0].textContent = lyft_data.lyft.duration_estimate ? formatTime(lyft_data.lyft.driver_eta + lyft_data.lyft.duration_estimate) : '-';
+                            lyft_eta_fields[1].textContent = lyft_data.lyft_line.duration_estimate ? formatTime(lyft_data.lyft_line.driver_eta + lyft_data.lyft_line.duration_estimate) : '-';
+                            lyft_eta_fields[2].textContent = lyft_data.lyft_plus.duration_estimate ? formatTime(lyft_data.lyft_plus.driver_eta + lyft_data.lyft_plus.duration_estimate) : '-';
                           }
                         }
                       }

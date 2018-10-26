@@ -2,15 +2,15 @@
 Error: Invalid CSS after "  margin": expected selector or at-rule, was ": 0"
         on line 4 of /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass
 
-1: @import url('https://fonts.googleapis.com/css?family=Roboto')
+1: @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700')
 2: 
 3: body
 4:   margin: 0
 5:   padding: 0
 6:   background: white
-7: 
-8: .form
-9:   position: relative
+7:   font-family: 'Roboto', sans-serif
+8:   overflow: hidden
+9: 
 
 Backtrace:
 /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass:4
@@ -31,4 +31,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Invalid CSS after \"  margin\": expected selector or at-rule, was \": 0\"\A         on line 4 of /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass\A \A 1: @import url('https://fonts.googleapis.com/css?family=Roboto')\A 2: \A 3: body\A 4:   margin: 0\A 5:   padding: 0\A 6:   background: white\A 7: \A 8: .form\A 9:   position: relative"; }
+  content: "Error: Invalid CSS after \"  margin\": expected selector or at-rule, was \": 0\"\A         on line 4 of /Users/kevinfan/desktop/parsons/fall18/js/week7/hw/hw7/sass/styles.sass\A \A 1: @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700')\A 2: \A 3: body\A 4:   margin: 0\A 5:   padding: 0\A 6:   background: white\A 7:   font-family: 'Roboto', sans-serif\A 8:   overflow: hidden\A 9: "; }
