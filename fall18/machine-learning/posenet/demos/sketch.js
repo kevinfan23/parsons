@@ -1,12 +1,10 @@
 import * as posenet from '@tensorflow-models/posenet';
 import dat from 'dat.gui';
-import Stats from 'stats.js';
 
 import {drawBoundingBox, drawKeypoints, drawSkeleton} from './demo_util';
 
 const videoWidth = 300;
 const videoHeight = 250;
-const stats = new Stats();
 
 function isAndroid() {
   return /Android/i.test(navigator.userAgent);
@@ -70,12 +68,6 @@ const guiState = {
     minPoseConfidence: 0.1,
     minPartConfidence: 0.5,
   },
-  multiPoseDetection: {
-    maxPoseDetections: 5,
-    minPoseConfidence: 0.15,
-    minPartConfidence: 0.1,
-    nmsRadius: 30.0,
-  },
   output: {
     showVideo: true,
     showSkeleton: true,
@@ -94,14 +86,6 @@ function setupGui(cameras, net) {
   if (cameras.length > 0) {
     guiState.camera = cameras[0].deviceId;
   }
-}
-
-/**
- * Sets up a frames per second panel on the top-left of the window
- */
-function setupFPS() {
-  stats.showPanel(0);  // 0: fps, 1: ms, 2: mb, 3+: custom
-  document.body.appendChild(stats.dom);
 }
 
 /**
@@ -129,9 +113,6 @@ function detectPoseInRealTime(video, net) {
       guiState.changeToArchitecture = null;
     }
 
-    // Begin monitoring code for frames per second
-    stats.begin();
-
     // Scale an image down to a certain factor. Too large of an image will slow
     // down the GPU
     const imageScaleFactor = guiState.input.imageScaleFactor;
@@ -140,26 +121,13 @@ function detectPoseInRealTime(video, net) {
     let poses = [];
     let minPoseConfidence;
     let minPartConfidence;
-    switch (guiState.algorithm) {
-      case 'single-pose':
-        const pose = await guiState.net.estimateSinglePose(
-            video, imageScaleFactor, flipHorizontal, outputStride);
-        poses.push(pose);
 
-        minPoseConfidence = +guiState.singlePoseDetection.minPoseConfidence;
-        minPartConfidence = +guiState.singlePoseDetection.minPartConfidence;
-        break;
-      case 'multi-pose':
-        poses = await guiState.net.estimateMultiplePoses(
-            video, imageScaleFactor, flipHorizontal, outputStride,
-            guiState.multiPoseDetection.maxPoseDetections,
-            guiState.multiPoseDetection.minPartConfidence,
-            guiState.multiPoseDetection.nmsRadius);
+    const pose = await guiState.net.estimateSinglePose(
+        video, imageScaleFactor, flipHorizontal, outputStride);
+    poses.push(pose);
 
-        minPoseConfidence = +guiState.multiPoseDetection.minPoseConfidence;
-        minPartConfidence = +guiState.multiPoseDetection.minPartConfidence;
-        break;
-    }
+    minPoseConfidence = +guiState.singlePoseDetection.minPoseConfidence;
+    minPartConfidence = +guiState.singlePoseDetection.minPartConfidence;
 
     ctx.clearRect(0, 0, videoWidth, videoHeight);
 
@@ -194,7 +162,7 @@ function detectPoseInRealTime(video, net) {
       let textfield = document.getElementById('position');
       let positions = poses[0].keypoints[10].position;
       let score = poses[0].keypoints[10].score;
-      if (score > .8) {
+      if (score > .7) {
         // x: 0-300
         // y: 0-225
         let x = positions.x;
@@ -254,9 +222,6 @@ function detectPoseInRealTime(video, net) {
       }
     }
 
-    // End monitoring code for frames per second
-    stats.end();
-
     requestAnimationFrame(poseDetectionFrame);
   }
 
@@ -283,7 +248,6 @@ export async function bindPage() {
   }
 
   setupGui([], net);
-  setupFPS();
   detectPoseInRealTime(video, net);
 }
 

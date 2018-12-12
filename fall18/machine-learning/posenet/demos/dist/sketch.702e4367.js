@@ -53762,14 +53762,6 @@ var index = {
 };
 var _default = index;
 exports.default = _default;
-},{}],"node_modules/stats.js/build/stats.min.js":[function(require,module,exports) {
-var define;
-// stats.js - http://github.com/mrdoob/stats.js
-(function(f,e){"object"===typeof exports&&"undefined"!==typeof module?module.exports=e():"function"===typeof define&&define.amd?define(e):f.Stats=e()})(this,function(){var f=function(){function e(a){c.appendChild(a.dom);return a}function u(a){for(var d=0;d<c.children.length;d++)c.children[d].style.display=d===a?"block":"none";l=a}var l=0,c=document.createElement("div");c.style.cssText="position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000";c.addEventListener("click",function(a){a.preventDefault();
-u(++l%c.children.length)},!1);var k=(performance||Date).now(),g=k,a=0,r=e(new f.Panel("FPS","#0ff","#002")),h=e(new f.Panel("MS","#0f0","#020"));if(self.performance&&self.performance.memory)var t=e(new f.Panel("MB","#f08","#201"));u(0);return{REVISION:16,dom:c,addPanel:e,showPanel:u,begin:function(){k=(performance||Date).now()},end:function(){a++;var c=(performance||Date).now();h.update(c-k,200);if(c>g+1E3&&(r.update(1E3*a/(c-g),100),g=c,a=0,t)){var d=performance.memory;t.update(d.usedJSHeapSize/
-1048576,d.jsHeapSizeLimit/1048576)}return c},update:function(){k=this.end()},domElement:c,setMode:u}};f.Panel=function(e,f,l){var c=Infinity,k=0,g=Math.round,a=g(window.devicePixelRatio||1),r=80*a,h=48*a,t=3*a,v=2*a,d=3*a,m=15*a,n=74*a,p=30*a,q=document.createElement("canvas");q.width=r;q.height=h;q.style.cssText="width:80px;height:48px";var b=q.getContext("2d");b.font="bold "+9*a+"px Helvetica,Arial,sans-serif";b.textBaseline="top";b.fillStyle=l;b.fillRect(0,0,r,h);b.fillStyle=f;b.fillText(e,t,v);
-b.fillRect(d,m,n,p);b.fillStyle=l;b.globalAlpha=.9;b.fillRect(d,m,n,p);return{dom:q,update:function(h,w){c=Math.min(c,h);k=Math.max(k,h);b.fillStyle=l;b.globalAlpha=1;b.fillRect(0,0,r,m);b.fillStyle=f;b.fillText(g(h)+" "+e+" ("+g(c)+"-"+g(k)+")",t,v);b.drawImage(q,d+a,m,n-a,p,d,m,n-a,p);b.fillRect(d+n-a,m,a,p);b.fillStyle=l;b.globalAlpha=.9;b.fillRect(d+n-a,m,a,g((1-h/w)*p))}}};return f});
-
 },{}],"demo_util.js":[function(require,module,exports) {
 "use strict";
 
@@ -53982,8 +53974,6 @@ var posenet = _interopRequireWildcard(require("@tensorflow-models/posenet"));
 
 var _dat = _interopRequireDefault(require("dat.gui"));
 
-var _stats = _interopRequireDefault(require("stats.js"));
-
 var _demo_util = require("./demo_util");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -53992,7 +53982,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const videoWidth = 300;
 const videoHeight = 250;
-const stats = new _stats.default();
 
 function isAndroid() {
   return /Android/i.test(navigator.userAgent);
@@ -54053,12 +54042,6 @@ const guiState = {
     minPoseConfidence: 0.1,
     minPartConfidence: 0.5
   },
-  multiPoseDetection: {
-    maxPoseDetections: 5,
-    minPoseConfidence: 0.15,
-    minPartConfidence: 0.1,
-    nmsRadius: 30.0
-  },
   output: {
     showVideo: true,
     showSkeleton: true,
@@ -54077,16 +54060,6 @@ function setupGui(cameras, net) {
   if (cameras.length > 0) {
     guiState.camera = cameras[0].deviceId;
   }
-}
-/**
- * Sets up a frames per second panel on the top-left of the window
- */
-
-
-function setupFPS() {
-  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-
-  document.body.appendChild(stats.dom);
 }
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -54110,33 +54083,19 @@ function detectPoseInRealTime(video, net) {
 
       guiState.net = await posenet.load(+guiState.changeToArchitecture);
       guiState.changeToArchitecture = null;
-    } // Begin monitoring code for frames per second
-
-
-    stats.begin(); // Scale an image down to a certain factor. Too large of an image will slow
+    } // Scale an image down to a certain factor. Too large of an image will slow
     // down the GPU
+
 
     const imageScaleFactor = guiState.input.imageScaleFactor;
     const outputStride = +guiState.input.outputStride;
     let poses = [];
     let minPoseConfidence;
     let minPartConfidence;
-
-    switch (guiState.algorithm) {
-      case 'single-pose':
-        const pose = await guiState.net.estimateSinglePose(video, imageScaleFactor, flipHorizontal, outputStride);
-        poses.push(pose);
-        minPoseConfidence = +guiState.singlePoseDetection.minPoseConfidence;
-        minPartConfidence = +guiState.singlePoseDetection.minPartConfidence;
-        break;
-
-      case 'multi-pose':
-        poses = await guiState.net.estimateMultiplePoses(video, imageScaleFactor, flipHorizontal, outputStride, guiState.multiPoseDetection.maxPoseDetections, guiState.multiPoseDetection.minPartConfidence, guiState.multiPoseDetection.nmsRadius);
-        minPoseConfidence = +guiState.multiPoseDetection.minPoseConfidence;
-        minPartConfidence = +guiState.multiPoseDetection.minPartConfidence;
-        break;
-    }
-
+    const pose = await guiState.net.estimateSinglePose(video, imageScaleFactor, flipHorizontal, outputStride);
+    poses.push(pose);
+    minPoseConfidence = +guiState.singlePoseDetection.minPoseConfidence;
+    minPartConfidence = +guiState.singlePoseDetection.minPartConfidence;
     ctx.clearRect(0, 0, videoWidth, videoHeight);
 
     if (guiState.output.showVideo) {
@@ -54175,7 +54134,7 @@ function detectPoseInRealTime(video, net) {
       let positions = poses[0].keypoints[10].position;
       let score = poses[0].keypoints[10].score;
 
-      if (score > .8) {
+      if (score > .7) {
         // x: 0-300
         // y: 0-225
         let x = positions.x;
@@ -54226,10 +54185,8 @@ function detectPoseInRealTime(video, net) {
           }
         }
       }
-    } // End monitoring code for frames per second
+    }
 
-
-    stats.end();
     requestAnimationFrame(poseDetectionFrame);
   }
 
@@ -54255,12 +54212,11 @@ async function bindPage() {
   }
 
   setupGui([], net);
-  setupFPS();
   detectPoseInRealTime(video, net);
 }
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia; // kick off the demo
 
 bindPage();
-},{"babel-runtime/core-js/promise":"node_modules/babel-runtime/core-js/promise.js","@tensorflow-models/posenet":"node_modules/@tensorflow-models/posenet/dist/posenet.esm.js","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js","stats.js":"node_modules/stats.js/build/stats.min.js","./demo_util":"demo_util.js"}]},{},["sketch.js"], null)
+},{"babel-runtime/core-js/promise":"node_modules/babel-runtime/core-js/promise.js","@tensorflow-models/posenet":"node_modules/@tensorflow-models/posenet/dist/posenet.esm.js","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js","./demo_util":"demo_util.js"}]},{},["sketch.js"], null)
 //# sourceMappingURL=/sketch.702e4367.map
