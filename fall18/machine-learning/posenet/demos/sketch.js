@@ -208,7 +208,6 @@ function detectPoseInRealTime(video, net) {
           }
         }
 
-
         // textfield.innerHTML = 'position x: ' + positions.x + ' position y: ' + positions.y;
 
         if (poses[0].keypoints[9].score > .7 && poses[0].keypoints[9].position.y < 50) {
